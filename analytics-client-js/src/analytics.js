@@ -1,5 +1,5 @@
 import {LocalStorageMechanism, Storage} from 'metal-storage';
-import {meta} from './middlewares/meta';
+import middlewares from './middlewares/defaults';
 
 // Gateways
 import AsahClient from './AsahClient/AsahClient';
@@ -7,7 +7,7 @@ import LCSClient from './LCSClient/LCSClient';
 
 import defaultPlugins from './plugins/defaults';
 import fingerprint from './utils/fingerprint';
-import hash from 'object-hash';
+import hash from './utils/hash';
 import uuidv1 from 'uuid/v1';
 
 // Constants
@@ -116,15 +116,15 @@ class Analytics {
 	 * @protected
 	 * @return {object}
 	 */
-	_serialize(eventId, applicationId, properties, serializedContext) {
+	_serialize(eventId, applicationId, properties, contextHash) {
 		const eventDate = new Date().toISOString();
 
 		return {
 			applicationId,
+			contextHash,
 			eventDate,
 			eventId,
 			properties,
-			serializedContext,
 		};
 	}
 
@@ -152,6 +152,15 @@ class Analytics {
 	 */
 	_generateUserId() {
 		return uuidv1();
+	}
+
+	_getContext() {
+		const {context} = middlewares.reduce(
+			(request, middleware) => middleware(request, this),
+			{context: {}}
+		);
+
+		return context;
 	}
 
 	/**
@@ -306,7 +315,8 @@ class Analytics {
 		}
 
 		if (!this.events.length) {
-			const {context} = meta({context: {}});
+			const context = this._getContext();
+
 			this.contexts = this.contexts.filter(
 				storedContext => hash(context) == hash(storedContext)
 			);
@@ -323,19 +333,25 @@ class Analytics {
 	 * @param {object} eventProps Complementary information about the event
 	 */
 	send(eventId, applicationId, eventProps) {
-		const {context} = meta({context: {}});
+		const currentContext = this._getContext();
+		const currentContextHash = hash(currentContext);
 
-		const hasContext = this.contexts.filter(
-			storedContext => hash(storedContext) == hash(context)
+		const hasStoredContext = this.contexts.find(
+			storedContext => hash(storedContext) === currentContextHash
 		);
 
-		if (!hasContext.length) {
-			this.contexts = [...this.contexts, context];
+		if (!hasStoredContext) {
+			this.contexts = [...this.contexts, currentContext];
 		}
 
 		this.events = [
 			...this.events,
-			this._serialize(eventId, applicationId, eventProps, hash(context)),
+			this._serialize(
+				eventId,
+				applicationId,
+				eventProps,
+				currentContextHash
+			),
 		];
 
 		this._persist(STORAGE_KEY_EVENTS, this.events);
