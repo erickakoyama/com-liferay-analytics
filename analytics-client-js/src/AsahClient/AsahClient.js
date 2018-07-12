@@ -1,4 +1,5 @@
 import middlewares from '../middlewares/defaults';
+import hash from 'object-hash';
 
 const ASAH_ENDPOINT = 'https://osbasahcerebropublisher-asahlfr.lfr.io/';
 

@@ -1,4 +1,5 @@
 import middlewares from '../middlewares/defaults';
+import hash from 'object-hash';
 
 const LCS_ENDPOINT =
 	'https://analytics-gw.liferay.com/api/analyticsgateway/send-analytics-events';
