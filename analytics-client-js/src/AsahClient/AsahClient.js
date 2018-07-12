@@ -26,8 +26,10 @@ class AsahClient {
 	 * @protected
 	 * @return {object} Request
 	 */
-	_getAsahRequest(analytics, userId) {
-		const body = JSON.stringify(this._getRequestBody(analytics, userId));
+	_getAsahRequest(analytics, userId, context) {
+		const body = JSON.stringify(
+			this._getRequestBody(analytics, userId, context)
+		);
 		const headers = new Headers();
 
 		headers.append('Content-Type', 'application/json');
