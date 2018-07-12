@@ -320,6 +320,11 @@ class Analytics {
 		const hasContext = this.contexts.filter(
 			storedContext => hash(storedContext) == hash(context)
 		);
+
+		if (!hasContext.length) {
+			this.contexts = [...this.contexts, context];
+		}
+
 		this.events = [
 			...this.events,
 			this._serialize(eventId, applicationId, eventProps, hash(context)),
