@@ -16,6 +16,7 @@ const REQUEST_TIMEOUT = 5000;
 
 // Local Storage keys
 const STORAGE_KEY_EVENTS = 'lcs_client_batch';
+const STORAGE_KEY_CONTEXTS = 'lcs_client_context';
 const STORAGE_KEY_USER_ID = 'lcs_client_user_id';
 const STORAGE_KEY_IDENTITY_HASH = 'lcs_client_identity';
 
@@ -59,6 +60,7 @@ class Analytics {
 			'https://analytics-gw.liferay.com/api/identitycontextgateway/send-identity-context';
 
 		instance.events = storage.get(STORAGE_KEY_EVENTS) || [];
+		instance.contexts = storage.get(STORAGE_KEY_CONTEXTS) || [];
 		instance.isFlushInProgress = false;
 
 		// Initializes default plugins
