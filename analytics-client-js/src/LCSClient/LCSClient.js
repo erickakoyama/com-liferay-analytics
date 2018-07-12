@@ -89,9 +89,11 @@ class LCSClient {
 	 * @return {object} Promise object representing the result of the operation
 	 */
 	send(analytics, userId) {
-		const request = this._getLCSRequest(analytics, userId);
+		analytics.contexts.forEach(context => {
+			const request = this._getLCSRequest(analytics, userId, context);
 
-		return fetch(this.uri, request).then(this._validateResponse);
+			return fetch(this.uri, request).then(this._validateResponse);
+		});
 	}
 
 	/**

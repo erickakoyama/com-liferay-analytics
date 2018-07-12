@@ -88,11 +88,13 @@ class AsahClient {
 	 * @return {object} Promise object representing the result of the operation
 	 */
 	send(analytics, userId) {
-		const request = this._getAsahRequest(analytics, userId);
+		analytics.contexts.forEach(context => {
+			const request = this._getAsahRequest(analytics, userId, context);
 
-		return fetch(this.uri, request)
-			.then(this._validateResponse)
-			.catch(() => Promise.resolve());
+			return fetch(this.uri, request)
+				.then(this._validateResponse)
+				.catch(() => Promise.resolve());
+		});
 	}
 
 	/**
