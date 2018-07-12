@@ -1,4 +1,5 @@
 import {LocalStorageMechanism, Storage} from 'metal-storage';
+import {meta} from './middlewares/meta';
 
 // Gateways
 import AsahClient from './AsahClient/AsahClient';
