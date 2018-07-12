@@ -311,12 +311,18 @@ class Analytics {
 	 * @param {object} eventProps Complementary information about the event
 	 */
 	send(eventId, applicationId, eventProps) {
+		const {context} = meta({context: {}});
+
+		const hasContext = this.contexts.filter(
+			storedContext => hash(storedContext) == hash(context)
+		);
 		this.events = [
 			...this.events,
-			this._serialize(eventId, applicationId, eventProps),
+			this._serialize(eventId, applicationId, eventProps, hash(context)),
 		];
 
 		this._persist(STORAGE_KEY_EVENTS, this.events);
+		this._persist(STORAGE_KEY_CONTEXTS, this.contexts);
 	}
 
 	/**
