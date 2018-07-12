@@ -113,7 +113,7 @@ class Analytics {
 	 * @protected
 	 * @return {object}
 	 */
-	_serialize(eventId, applicationId, properties) {
+	_serialize(eventId, applicationId, properties, serializedContext) {
 		const eventDate = new Date().toISOString();
 
 		return {
@@ -121,6 +121,7 @@ class Analytics {
 			eventDate,
 			eventId,
 			properties,
+			serializedContext,
 		};
 	}
 
