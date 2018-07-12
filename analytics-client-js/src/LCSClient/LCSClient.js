@@ -53,10 +53,25 @@ class LCSClient {
 	 * @protected
 	 * @return {object} Body of the request to be sent to LCS
 	 */
-	_getRequestBody(analytics, userId) {
+	_getRequestBody(analytics, userId, context) {
+		const events = [];
+
+		analytics.events.forEach(event => {
+			const currentEvent = {...event};
+
+			if (
+				currentEvent.applicationId &&
+				currentEvent.eventId &&
+				currentEvent.serializedContext == hash(context)
+			) {
+				delete currentEvent.serializedContext;
+				events.push(currentEvent);
+			}
+		});
+
 		const requestBody = {
 			analyticsKey: analytics.config.analyticsKey,
-			context: {},
+			context,
 			events,
 			protocolVersion: '1.0',
 			userId,
