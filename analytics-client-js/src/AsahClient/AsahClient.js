@@ -56,9 +56,7 @@ class AsahClient {
 		const requestBody = {
 			analyticsKey: analytics.config.analyticsKey,
 			context: {},
-			events: analytics.events.filter(event => {
-				return event.applicationId && event.eventId;
-			}),
+			events,
 			protocolVersion: '1.0',
 			userId,
 		};
