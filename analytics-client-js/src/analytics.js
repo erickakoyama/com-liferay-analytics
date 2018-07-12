@@ -305,7 +305,15 @@ class Analytics {
 			this.events.length = 0;
 		}
 
+		if (!this.events.length) {
+			const {context} = meta({context: {}});
+			this.contexts = this.contexts.filter(
+				storedContext => hash(context) == hash(storedContext)
+			);
+		}
+
 		this._persist(STORAGE_KEY_EVENTS, this.events);
+		this._persist(STORAGE_KEY_CONTEXTS, this.contexts);
 	}
 
 	/**
