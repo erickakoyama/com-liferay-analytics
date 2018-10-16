@@ -53,7 +53,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Shinn Lok
  */
 @Component(immediate = true, service = {})
-public class OAuth2Activator {
+public class AnalyticsOAuth2Activator {
 
 	@Activate
 	protected void activate() throws Exception {
