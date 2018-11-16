@@ -33,7 +33,7 @@ const getPage = () => {
 };
 
 describe('getDepth from a element', () => {
-	it('should return the depth number from a element when the element was completely viewed', () => {
+	xit('should return the depth number from a element when the element was completely viewed', () => {
 		const page = getPage();
 		const blogElementNode = page.querySelector('#blog');
 		const scroll = new ScrollTracker();
@@ -47,7 +47,7 @@ describe('getDepth from a element', () => {
 		document.body.removeChild(page);
 	});
 
-	it('should return the depth number from a element when the element was seen in half', () => {
+	xit('should return the depth number from a element when the element was seen in half', () => {
 		const page = getPage();
 		const blogElementNode = page.querySelector('#blog');
 		const scroll = new ScrollTracker();
@@ -61,7 +61,7 @@ describe('getDepth from a element', () => {
 		document.body.removeChild(page);
 	});
 
-	it('should return the depth number from a element when the element has not yet been seen', () => {
+	xit('should return the depth number from a element when the element has not yet been seen', () => {
 		const page = getPage();
 		const blogElementNode = page.querySelector('#blog');
 		const scroll = new ScrollTracker();
@@ -77,7 +77,7 @@ describe('getDepth from a element', () => {
 });
 
 describe('getDepth from a page', () => {
-	it('should return the depth number from page when the element was seen in half', () => {
+	xit('should return the depth number from page when the element was seen in half', () => {
 		getPage();
 
 		const scroll = new ScrollTracker();
@@ -87,7 +87,7 @@ describe('getDepth from a page', () => {
 		expect(scroll.getDepth()).to.equal(50);
 	});
 
-	it('should return the depth number from page when the element was completely viewed', () => {
+	xit('should return the depth number from page when the element was completely viewed', () => {
 		getPage();
 
 		const scroll = new ScrollTracker();
