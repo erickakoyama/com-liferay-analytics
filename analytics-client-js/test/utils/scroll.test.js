@@ -42,20 +42,6 @@ describe('getDepth from a element', () => {
 		document.body.removeChild(page);
 	});
 
-	xit('should return the depth number from a element when the element was seen in half', () => {
-		const page = getPage();
-		const blogElementNode = page.querySelector('#blog');
-		const scroll = new ScrollTracker();
-
-		window.scrollTo(0, 1670);
-
-		expect(scroll.getDepth(blogElementNode)).to.equal(50);
-
-		page.innerHTML = '';
-
-		document.body.removeChild(page);
-	});
-
 	it('should return the depth number from a element when the element was completely viewed', () => {
 		const page = getPage();
 		const blogElementNode = page.querySelector('#blog');
