@@ -9,7 +9,7 @@ dependencies {
 	compileInclude group: "org.apache.httpcomponents", name: "httpcore-nio", version: "4.4.6"
 	compileInclude group: "org.slf4j", name: "slf4j-api", version: "1.7.2"
 
-	compileOnly group: "com.liferay", name: "com.liferay.analytics.api", version: "1.0.0"
+	compileOnly group: "com.liferay", name: "com.liferay.analytics.api", version: "2.0.0"
 	compileOnly group: "com.liferay", name: "com.liferay.analytics.data.binding.impl", version: "1.0.0"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.0.0"
 
