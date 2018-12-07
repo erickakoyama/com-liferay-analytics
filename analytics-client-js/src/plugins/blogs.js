@@ -11,7 +11,10 @@ const applicationId = 'Blog';
  * @return {object} The payload with blog information
  */
 function getBlogPayload(blog) {
-	return {entryId: blog.dataset.analyticsAssetId};
+	return {
+		entryId: blog.dataset.analyticsAssetId,
+		title: blog.dataset.analyticsAssetTitle || '',
+	};
 }
 
 /**
@@ -64,14 +67,9 @@ function trackBlogViewed(analytics) {
 			.filter(element => isTrackableBlog(element))
 			.forEach(element => {
 				let payload = getBlogPayload(element);
-				const title = element.dataset.analyticsAssetTitle;
 				const numberOfWords = getNumberOfWords(element);
 
 				payload = {numberOfWords, ...payload};
-
-				if (title) {
-					payload = {title, ...payload};
-				}
 
 				blogElements.push(element);
 
