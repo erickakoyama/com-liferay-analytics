@@ -35,7 +35,10 @@ function getFieldPayload({form, name}) {
  * @return {object} The payload with form information
  */
 function getFormPayload(form) {
-	return {formId: getFormKey(form)};
+	return {
+		formId: getFormKey(form),
+		title: form.dataset.analyticsAssetTitle || '',
+	};
 }
 
 /**
@@ -137,12 +140,7 @@ function trackFormViewed(analytics) {
 			.call(document.querySelectorAll('form'))
 			.filter(form => isTrackableForm(form))
 			.forEach(form => {
-				let payload = getFormPayload(form);
-				const title = form.dataset.analyticsAssetTitle;
-
-				if (title) {
-					payload = {title, ...payload};
-				}
+				const payload = getFormPayload(form);
 
 				analytics.send('formViewed', applicationId, payload);
 			});
