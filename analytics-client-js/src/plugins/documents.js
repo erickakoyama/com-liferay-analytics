@@ -13,6 +13,7 @@ function getDocumentPayload(documentElement) {
 	return {
 		fileEntryId: dataset.analyticsAssetId,
 		fileEntryVersion: dataset.analyticsAssetVersion,
+		title: dataset.analyticsAssetTitle || '',
 	};
 }
 
@@ -66,12 +67,7 @@ function trackDocumentPreviewed(analytics) {
 			)
 			.filter(element => isTrackableDocument(element))
 			.forEach(element => {
-				let payload = getDocumentPayload(element);
-				const title = element.dataset.analyticsAssetTitle;
-
-				if (title) {
-					payload = {title, ...payload};
-				}
+				const payload = getDocumentPayload(element);
 
 				analytics.send('documentPreviewed', applicationId, payload);
 			});
