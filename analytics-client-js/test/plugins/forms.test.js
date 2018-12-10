@@ -1,5 +1,5 @@
 import AnalyticsClient from '../../src/analytics';
-import {assert, expect} from 'chai';
+import {expect} from 'chai';
 
 const applicationId = 'Form';
 
@@ -38,7 +38,7 @@ describe('Forms Plugin', () => {
 			document.dispatchEvent(domContentLoaded);
 
 			const events = Analytics.events.filter(
-				({eventId, properties}) => eventId === 'formViewed'
+				({eventId}) => eventId === 'formViewed'
 			);
 
 			expect(events.length).to.equal(2);
@@ -83,7 +83,8 @@ describe('Forms Plugin', () => {
 				applicationId,
 				eventId: 'formSubmitted',
 				properties: {
-					formId: 'formId'
+					formId: 'formId',
+					title: 'Form Title'
 				}
 			});
 		});
