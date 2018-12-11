@@ -11,10 +11,17 @@ const applicationId = 'Blog';
  * @return {object} The payload with blog information
  */
 function getBlogPayload(blog) {
-	return {
-		entryId: blog.dataset.analyticsAssetId,
-		title: blog.dataset.analyticsAssetTitle || '',
+	const {dataset} = blog;
+
+	let payload = {
+		entryId: dataset.analyticsAssetId,
 	};
+
+	if (dataset.analyticsAssetTitle) {
+		payload ={...payload, title: dataset.analyticsAssetTitle};
+	}
+
+	return payload;
 }
 
 /**

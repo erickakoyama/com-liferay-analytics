@@ -9,10 +9,17 @@ const applicationId = 'WebContent';
  * @return {object} The payload with webContent information
  */
 function getWebContentPayload(webContent) {
-	return {
-		articleId: webContent.dataset.analyticsAssetId,
-		title: webContent.dataset.analyticsAssetTitle || '',
+	const {dataset} = webContent;
+
+	let payload = {
+		articleId: dataset.analyticsAssetId,
 	};
+
+	if (dataset.analyticsAssetTitle) {
+		payload ={...payload, title: dataset.analyticsAssetTitle};
+	}
+
+	return payload;
 }
 
 /**

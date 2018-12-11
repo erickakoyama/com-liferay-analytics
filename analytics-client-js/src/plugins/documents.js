@@ -10,11 +10,17 @@ const applicationId = 'Document';
  */
 function getDocumentPayload(documentElement) {
 	const {dataset} = documentElement;
-	return {
+
+	let payload = {
 		fileEntryId: dataset.analyticsAssetId,
 		fileEntryVersion: dataset.analyticsAssetVersion,
-		title: dataset.analyticsAssetTitle || '',
 	};
+
+	if (dataset.analyticsAssetTitle) {
+		payload ={...payload, title: dataset.analyticsAssetTitle};
+	}
+
+	return payload;
 }
 
 /**

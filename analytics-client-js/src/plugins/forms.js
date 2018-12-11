@@ -35,10 +35,15 @@ function getFieldPayload({form, name}) {
  * @return {object} The payload with form information
  */
 function getFormPayload(form) {
-	return {
+	let payload = {
 		formId: getFormKey(form),
-		title: form.dataset.analyticsAssetTitle || '',
 	};
+
+	if (form.dataset.analyticsAssetTitle) {
+		payload ={...payload, title: form.dataset.analyticsAssetTitle};
+	}
+
+	return payload;
 }
 
 /**
