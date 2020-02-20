@@ -31,7 +31,7 @@ const FLUSH_INTERVAL = 2000;
 
 const LIMIT_FAILED_ATTEMPTS = 7;
 
-const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = 120000;
 
 // Local Storage keys
 
